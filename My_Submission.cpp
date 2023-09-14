@@ -242,6 +242,12 @@ int main()
     Spacecraft spacecraft(0, 0, 0, 'N', 'N');
     string commands; // Example commands
     cin >> commands;
+
+   // Convert the input commands to lowercase
+    for (int i = 0; i < commands.length(); i++) {
+        commands[i] = tolower(commands[i]);
+    }
+
     // spacecraft.printPosition();
     for (int i = 0; i < commands.length(); i++)
     {
