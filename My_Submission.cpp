@@ -1,5 +1,5 @@
 #include <iostream>
-
+using namespace std;
 class Spacecraft
 {
 private:
@@ -41,9 +41,11 @@ public:
             break;
         }
     }
-void moveBackward() {
 
-    switch (direction) {
+    void moveBackward()
+    {
+        switch (direction)
+        {
         case 'N':
             y--;
             break;
@@ -62,11 +64,12 @@ void moveBackward() {
         case 'D':
             z++;
             break;
+        }
     }
-}
 
     void turnLeft()
     {
+        // cout<<direction<<" "<<ogdir<<endl;
         switch (direction)
         {
         case 'N':
@@ -88,52 +91,60 @@ void moveBackward() {
         case 'U':
             if (ogdir == 'E')
             {
+                // cout<<"hi"<<endl;
                 direction = 'N';
                 ogdir = 'N';
+                break;
             }
             else if (ogdir == 'N')
             {
                 direction = 'W';
                 ogdir = 'W';
+                break;
             }
             else if (ogdir == 'S')
             {
                 direction = 'E';
                 ogdir = 'E';
+                break;
             }
             else
             {
                 direction = 'S';
                 ogdir = 'S';
+                break;
             }
-            break;
         case 'D':
             if (ogdir == 'E')
             {
                 direction = 'N';
                 ogdir = 'N';
+                break;
             }
             else if (ogdir == 'N')
             {
                 direction = 'W';
                 ogdir = 'W';
+                break;
             }
             else if (ogdir == 'S')
             {
                 direction = 'E';
                 ogdir = 'E';
+                break;
             }
             else
             {
                 direction = 'S';
                 ogdir = 'S';
+                break;
             }
-            break;
         }
     }
 
     void turnRight()
     {
+
         switch (direction)
         {
         case 'N':
@@ -152,52 +163,60 @@ void moveBackward() {
             direction = 'N';
             ogdir = 'N';
             break;
+
         case 'U':
             if (ogdir == 'E')
             {
                 direction = 'S';
                 ogdir = 'S';
+                break;
             }
             else if (ogdir == 'N')
             {
                 direction = 'E';
                 ogdir = 'E';
+                break;
             }
             else if (ogdir == 'S')
             {
                 direction = 'W';
                 ogdir = 'W';
+                break;
             }
             else
             {
                 direction = 'N';
                 ogdir = 'N';
+                break;
             }
-            break;
         case 'D':
             if (ogdir == 'E')
             {
                 direction = 'S';
                 ogdir = 'S';
+                break;
             }
             else if (ogdir == 'N')
             {
                 direction = 'E';
                 ogdir = 'E';
+                break;
             }
             else if (ogdir == 'S')
             {
                 direction = 'W';
                 ogdir = 'W';
+                break;
             }
             else
             {
                 direction = 'N';
                 ogdir = 'N';
+                break;
             }
-            break;
         }
     }
+
     void turnUp()
     {
         if (direction != 'U')
@@ -205,7 +224,6 @@ void moveBackward() {
             direction = 'U';
         }
     }
-
     void turnDown()
     {
         if (direction != 'D')
@@ -213,52 +231,51 @@ void moveBackward() {
             direction = 'D';
         }
     }
-
-    int getX()
-    {
-        return x;
-    }
-
-    int getY()
-    {
-        return y;
-    }
-    int getZ()
-    {
-        return z;
-    }
-    char getDirection()
-    {
-        return direction;
-    }
     void printPosition()
     {
         std::cout << "Current Position: (" << x << ", " << y << ", " << z << "), Direction: " << direction << std::endl;
     }
 };
-int main() {
-    // Create a Spacecraft object
+
+int main()
+{
     Spacecraft spacecraft(0, 0, 0, 'N', 'N');
+    string commands; // Example commands
+    cin >> commands;
+    // spacecraft.printPosition();
+    for (int i = 0; i < commands.length(); i++)
+    {
+        char command = commands[i];
+        switch (command)
+        {
+        case 'f':
+            spacecraft.moveForward();
+      
+            break;
+        case 'b':
+            spacecraft.moveBackward();
+     
+            break;
+        case 'l':
+            spacecraft.turnLeft();
 
-    // Move forward
-    spacecraft.moveForward();
-
-    // Check if the spacecraft's position changed
-    if (spacecraft.getX() == 0 && spacecraft.getY() == 1 && spacecraft.getZ() == 0) {
-        std::cout << "Move forward test passed." << std::endl;
-    } else {
-        std::cerr << "Move forward test failed." << std::endl;
+            break;
+        case 'r':
+            spacecraft.turnRight();
+          
+            break;
+        case 'u':
+            spacecraft.turnUp();
+          
+            break;
+        case 'd':
+            spacecraft.turnDown();
+          
+            break;
+        }
     }
 
-    // Move backward
-    spacecraft.moveBackward();
-
-    // Check if the spacecraft's position returned to the initial position
-    if (spacecraft.getX() == 0 && spacecraft.getY() == 0 && spacecraft.getZ() == 0) {
-        std::cout << "Move backward test passed." << std::endl;
-    } else {
-        std::cerr << "Move backward test failed." << std::endl;
-    }
+    spacecraft.printPosition();
 
     return 0;
 }
