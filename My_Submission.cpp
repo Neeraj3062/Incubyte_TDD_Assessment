@@ -41,6 +41,30 @@ public:
             break;
         }
     }
+void moveBackward() {
+
+    switch (direction) {
+        case 'N':
+            y--;
+            break;
+        case 'S':
+            y++;
+            break;
+        case 'E':
+            x--;
+            break;
+        case 'W':
+            x++;
+            break;
+        case 'U':
+            z--;
+            break;
+        case 'D':
+            z++;
+            break;
+    }
+}
+
     void turnLeft()
     {
         switch (direction)
@@ -174,6 +198,22 @@ public:
             break;
         }
     }
+    void turnUp()
+    {
+        if (direction != 'U')
+        {
+            direction = 'U';
+        }
+    }
+
+    void turnDown()
+    {
+        if (direction != 'D')
+        {
+            direction = 'D';
+        }
+    }
+
     int getX()
     {
         return x;
@@ -196,35 +236,29 @@ public:
         std::cout << "Current Position: (" << x << ", " << y << ", " << z << "), Direction: " << direction << std::endl;
     }
 };
-int main()
-{
+int main() {
     // Create a Spacecraft object
-    Spacecraft mySpacecraft(0, 0, 0, 'N', 'N');
+    Spacecraft spacecraft(0, 0, 0, 'N', 'N');
 
-    mySpacecraft.turnLeft();
+    // Move forward
+    spacecraft.moveForward();
 
-    // Check if the direction changes to 'W' (west)
-    if (mySpacecraft.getDirection() == 'W')
-    {
-        std::cout << "Turn left test passed." << std::endl;
-    }
-    else
-    {
-        std::cout << "Turn left test failed." << std::endl;
+    // Check if the spacecraft's position changed
+    if (spacecraft.getX() == 0 && spacecraft.getY() == 1 && spacecraft.getZ() == 0) {
+        std::cout << "Move forward test passed." << std::endl;
+    } else {
+        std::cerr << "Move forward test failed." << std::endl;
     }
 
+    // Move backward
+    spacecraft.moveBackward();
 
-    mySpacecraft.turnRight();
+    // Check if the spacecraft's position returned to the initial position
+    if (spacecraft.getX() == 0 && spacecraft.getY() == 0 && spacecraft.getZ() == 0) {
+        std::cout << "Move backward test passed." << std::endl;
+    } else {
+        std::cerr << "Move backward test failed." << std::endl;
+    }
 
-    // Check if the direction changes back to 'N' (north)
-    if (mySpacecraft.getDirection() == 'N')
-    {
-        std::cout << "Turn right test passed." << std::endl;
-    }
-    else
-    {
-        std::cout << "Turn right test failed." << std::endl;
-    }
-    mySpacecraft.printPosition();
     return 0;
 }
